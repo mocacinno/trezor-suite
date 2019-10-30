@@ -3,7 +3,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import styled from 'styled-components';
 
 import { H5, P, Button } from '@trezor/components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 
 import l10nCommonMessages from '@suite-views/index.messages';
 import l10nDeviceMessages from '../messages';
@@ -43,22 +43,22 @@ const ForgetDevice: FunctionComponent<Props> = ({ device, onForgetDevice, onCanc
     return (
         <Wrapper>
             <H5>
-                <FormattedMessage
-                    {...l10nDeviceMessages.TR_FORGET_LABEL}
+                <Translation
+                    message={l10nDeviceMessages.TR_FORGET_LABEL}
                     values={{
-                        deviceLabel: device.instanceLabel,
+                        deviceLabel: device.instanceLabel || '',
                     }}
                 />
             </H5>
             <StyledP size="small">
-                <FormattedMessage {...l10nMessages.TR_FORGETTING_ONLY_REMOVES_THE_DEVICE_FROM} />
+                <Translation message={l10nMessages.TR_FORGETTING_ONLY_REMOVES_THE_DEVICE_FROM} />
             </StyledP>
             <Row>
                 <Button onClick={() => onForgetDevice(device)}>
-                    <FormattedMessage {...l10nCommonMessages.TR_FORGET_DEVICE} />
+                    <Translation message={l10nCommonMessages.TR_FORGET_DEVICE} />
                 </Button>
                 <Button variant="white" onClick={onCancel}>
-                    <FormattedMessage {...l10nMessages.TR_DONT_FORGET} />
+                    <Translation message={l10nMessages.TR_DONT_FORGET} />
                 </Button>
             </Row>
         </Wrapper>

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import { P, Prompt, colors, variables } from '@trezor/components';
 import { TrezorDevice } from '@suite-types';
 import { Account, Network } from '@wallet-types';
@@ -42,18 +42,18 @@ const ConfirmAddress: FunctionComponent<Props> = ({ device, account, network }) 
         <Wrapper>
             <Header>
                 <Prompt model={majorVersion}>
-                    <FormattedMessage {...l10nMessages.TR_CONFIRM_ADDRESS_ON_TREZOR} />
+                    <Translation message={l10nMessages.TR_CONFIRM_ADDRESS_ON_TREZOR} />
                 </Prompt>
                 <P>
-                    <FormattedMessage {...l10nMessages.TR_PLEASE_COMPARE_YOUR_ADDRESS} />
+                    <Translation message={l10nMessages.TR_PLEASE_COMPARE_YOUR_ADDRESS} />
                 </P>
             </Header>
             <Content>
                 <P>{account.descriptor}</P>
                 <Label>
                     {network.symbol}
-                    <FormattedMessage
-                        {...l10nCommonMessages.TR_ACCOUNT_HASH}
+                    <Translation
+                        message={l10nCommonMessages.TR_ACCOUNT_HASH}
                         values={{ number: account.index + 1 }}
                     />
                 </Label>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Notification } from '@trezor/components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import l10nCommonMessages from '@suite-views/index.messages';
 import { getRoute } from '@suite-utils/router';
 import { Props as BaseProps } from '../../index';
@@ -19,12 +19,12 @@ export default ({ device, pathname, goto }: Props) => {
         <Notification
             key="no-backup"
             variant="warning"
-            title={<FormattedMessage {...l10nCommonMessages.TR_YOUR_TREZOR_IS_NOT_BACKED_UP} />}
-            message={<FormattedMessage {...l10nCommonMessages.TR_IF_YOUR_DEVICE_IS_EVER_LOST} />}
+            title={<Translation message={l10nCommonMessages.TR_YOUR_TREZOR_IS_NOT_BACKED_UP} />}
+            message={<Translation message={l10nCommonMessages.TR_IF_YOUR_DEVICE_IS_EVER_LOST} />}
             actions={[
                 {
                     label: (
-                        <FormattedMessage {...l10nCommonMessages.TR_CREATE_BACKUP_IN_3_MINUTES} />
+                        <Translation message={l10nCommonMessages.TR_CREATE_BACKUP_IN_3_MINUTES} />
                     ),
                     // label: 'Create backup in 3 minutes',
                     callback: () => goto('suite-device-backup'),

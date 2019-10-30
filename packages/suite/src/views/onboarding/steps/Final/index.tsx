@@ -11,11 +11,11 @@ import { Props } from './Container';
 const FinalStep = ({ exitApp }: Props) => (
     <Wrapper.Step>
         <H1>
-            <Translation>{l10nMessages.TR_FINAL_HEADING}</Translation>
+            <Translation message={l10nMessages.TR_FINAL_HEADING} />
         </H1>
 
         <H4>
-            <Translation>{l10nMessages.TR_FINAL_SUBHEADING}</Translation>
+            <Translation message={l10nMessages.TR_FINAL_SUBHEADING} />
         </H4>
 
         <Wrapper.Controls>

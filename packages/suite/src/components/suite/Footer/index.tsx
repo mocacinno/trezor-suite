@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link, colors, variables } from '@trezor/components';
 import { bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Translation } from '@suite-components/Intl';
 
@@ -91,8 +90,8 @@ const Content = styled.div`
 
 const Footer = ({ opened, toggle, isLanding = false }: Props) => {
     const exchangeRates = (
-        <FormattedMessage
-            {...l10nMessages.TR_EXCHANGE_RATES_BY}
+        <Translation
+            message={l10nMessages.TR_EXCHANGE_RATES_BY}
             values={{
                 service: (
                     <Link href="https://www.coingecko.com" variant="nostyle">
@@ -110,7 +109,7 @@ const Footer = ({ opened, toggle, isLanding = false }: Props) => {
                         SatoshiLabs
                     </StyledLink>
                     <StyledLink href="https://trezor.io/tos" variant="nostyle">
-                        <Translation>{l10nMessages.TR_TERMS}</Translation>
+                        <Translation message={l10nMessages.TR_TERMS} />
                     </StyledLink>
                     <StyledLink onClick={toggle}>{opened ? 'Hide Log' : 'Show Log'}</StyledLink>
                     <RatesLeft>{exchangeRates}</RatesLeft>
@@ -118,12 +117,12 @@ const Footer = ({ opened, toggle, isLanding = false }: Props) => {
                 {!isLanding && (
                     <Right>
                         <TranslatorsRight>
-                            <FormattedMessage
-                                {...l10nMessages.TR_WE_THANK_OUR_TRANSLATORS}
+                            <Translation
+                                message={l10nMessages.TR_WE_THANK_OUR_TRANSLATORS}
                                 values={{
                                     TR_CONTRIBUTION: (
                                         <Link href="https://wiki.trezor.io/CrowdIn.com_-_A_tool_for_translation">
-                                            <FormattedMessage {...l10nMessages.TR_CONTRIBUTION} />
+                                            <Translation message={l10nMessages.TR_CONTRIBUTION} />
                                         </Link>
                                     ),
                                 }}

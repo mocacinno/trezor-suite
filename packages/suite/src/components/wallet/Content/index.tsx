@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from 'react-intl';
 import { P, H4, Loader, colors, variables } from '@trezor/components';
 import { ExceptionPage, Loader as LoaderInterface } from '@wallet-reducers/selectedAccountReducer';
 import { Translation } from '@suite-components/Intl';
@@ -83,8 +83,9 @@ const Content = ({ className, children, isLoading = false, loader, exceptionPage
                         </LoaderWrapper>
                     )}
                     <Title type={loader.type}>
-                        {<Translation>{loader.title}</Translation> || (
-                            <FormattedMessage {...l10nMessages.TR_INITIALIZING_ACCOUNTS} />
+                        {/* TODO: translate */}
+                        {loader.title} || (
+                            <Translation message={l10nMessages.TR_INITIALIZING_ACCOUNTS} />
                         )}
                     </Title>
                 </Row>

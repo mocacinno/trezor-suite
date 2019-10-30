@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled, { css } from 'styled-components';
 
 import { H5, P, Link, Icon, Button, Tooltip, colors } from '@trezor/components';
-import { FormattedMessage } from 'react-intl';
+import { Translate } from '@suite-components/Intl';
 import { useKeyPress } from '@suite-utils/dom';
 
 import l10nCommonMessages from '../messages';
@@ -92,13 +92,13 @@ const WalletType: FunctionComponent<Props> = ({ device, onWalletTypeRequest, onC
             )}
             <StyledHeading>
                 {device.state ? (
-                    <FormattedMessage
-                        {...l10nMessages.TR_CHANGE_WALLET_TYPE_FOR}
+                    <Translate
+                        message={l10nMessages.TR_CHANGE_WALLET_TYPE_FOR}
                         values={{ deviceLabel: device.instanceLabel }}
                     />
                 ) : (
-                    <FormattedMessage
-                        {...l10nMessages.TR_SELECT_WALLET_TYPE_FOR}
+                    <Translate
+                        message={l10nMessages.TR_SELECT_WALLET_TYPE_FOR}
                         values={{ deviceLabel: device.instanceLabel }}
                     />
                 )}
@@ -110,13 +110,13 @@ const WalletType: FunctionComponent<Props> = ({ device, onWalletTypeRequest, onC
                         size={16}
                         color={colors.TEXT_PRIMARY}
                     />
-                    <FormattedMessage {...l10nMessages.TR_STANDARD_WALLET} />
+                    <Translate message={l10nMessages.TR_STANDARD_WALLET} />
                 </Header>
                 <P size="small">
-                    <FormattedMessage {...l10nMessages.TR_CONTINUE_TO_ACCESS_STANDARD_WALLET} />
+                    <Translate message={l10nMessages.TR_CONTINUE_TO_ACCESS_STANDARD_WALLET} />
                 </P>
                 <StyledButton onClick={() => onWalletTypeRequest(false)}>
-                    <FormattedMessage {...l10nCommonMessages.TR_GO_TO_STANDARD_WALLET} />
+                    <Translate {...l10nCommonMessages.TR_GO_TO_STANDARD_WALLET} />
                 </StyledButton>
             </Content>
             <Content>
@@ -125,9 +125,9 @@ const WalletType: FunctionComponent<Props> = ({ device, onWalletTypeRequest, onC
                         maxWidth={285}
                         placement="top"
                         ctaLink="https://wiki.trezor.io/Passphrase"
-                        ctaText={<FormattedMessage {...l10nCommonMessages.TR_LEARN_MORE} />}
+                        ctaText={<Translate {...l10nCommonMessages.TR_LEARN_MORE} />}
                         content={
-                            <FormattedMessage {...l10nMessages.TR_PASSPHRASE_IS_OPTIONAL_FEATURE} />
+                            <Translate message={l10nMessages.TR_PASSPHRASE_IS_OPTIONAL_FEATURE} />
                         }
                     >
                         <StyledIcon icon="HELP" color={colors.TEXT_SECONDARY} size={16} />
@@ -139,13 +139,13 @@ const WalletType: FunctionComponent<Props> = ({ device, onWalletTypeRequest, onC
                         size={16}
                         color={colors.TEXT_PRIMARY}
                     />
-                    <FormattedMessage {...l10nMessages.TR_HIDDEN_WALLET} />
+                    <Translate message={l10nMessages.TR_HIDDEN_WALLET} />
                 </Header>
                 <P size="small">
-                    <FormattedMessage {...l10nMessages.TR_ASKED_ENTER_YOUR_PASSPHRASE_TO_UNLOCK} />
+                    <Translate message={l10nMessages.TR_ASKED_ENTER_YOUR_PASSPHRASE_TO_UNLOCK} />
                 </P>
                 <StyledButton variant="white" onClick={() => onWalletTypeRequest(true)}>
-                    <FormattedMessage {...l10nCommonMessages.TR_GO_TO_HIDDEN_WALLET} />
+                    <Translate {...l10nCommonMessages.TR_GO_TO_HIDDEN_WALLET} />
                 </StyledButton>
             </Content>
         </Wrapper>

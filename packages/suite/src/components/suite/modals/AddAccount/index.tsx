@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import { H4 } from '@trezor/components';
 import { changeAccountVisibility } from '@wallet-actions/accountActions';
 import { changeCoinVisibility } from '@wallet-actions/settingsActions';
@@ -64,8 +64,8 @@ const AddAccount = (props: Props) => {
     return (
         <Wrapper>
             <H4>
-                <FormattedMessage
-                    {...l10nMessages.TR_ADD_NEW_ACCOUNT}
+                <Translation
+                    message={l10nMessages.TR_ADD_NEW_ACCOUNT}
                     values={{ deviceLabel: props.device.label }}
                 />
             </H4>

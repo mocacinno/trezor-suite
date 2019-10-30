@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { P, H5, Link } from '@trezor/components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import { PinInput } from '@suite-components';
 import { TrezorDevice } from '@suite-types';
 
@@ -30,21 +30,21 @@ const Pin = ({ device, onEnterPin }: Props) => {
     return (
         <ModalWrapper>
             <H5>
-                <FormattedMessage
-                    {...messages.TR_ENTER_PIN}
+                <Translation
+                    message={messages.TR_ENTER_PIN}
                     values={{
                         deviceLabel: device.label,
                     }}
                 />
             </H5>
             <TopMessage size="small">
-                <FormattedMessage {...messages.TR_THE_PIN_LAYOUT_IS_DISPLAYED} />
+                <Translation message={messages.TR_THE_PIN_LAYOUT_IS_DISPLAYED} />
             </TopMessage>
             <PinInput onPinSubmit={onEnterPin} />
             <BottomMessage size="small">
-                <FormattedMessage {...messages.TR_HOW_PIN_WORKS} />{' '}
+                <Translation message={messages.TR_HOW_PIN_WORKS} />{' '}
                 <Link href={URLS.PIN_MANUAL_URL}>
-                    <FormattedMessage {...modalsMessages.TR_LEARN_MORE} />
+                    <Translation message={modalsMessages.TR_LEARN_MORE} />
                 </Link>
             </BottomMessage>
         </ModalWrapper>

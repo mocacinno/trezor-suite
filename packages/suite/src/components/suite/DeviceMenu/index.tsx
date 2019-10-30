@@ -232,9 +232,7 @@ const DeviceMenu = ({
                         )}
                         {/* <Tooltip
                         content={
-                            <FormattedMessage
-                                {...l10nCommonMessages.TR_APPLICATION_SETTINGS}
-                            />
+                            <Translation message={l10nCommonMessages.TR_APPLICATION_SETTINGS} />
                         }
                         maxWidth={200}
                         placement="bottom"

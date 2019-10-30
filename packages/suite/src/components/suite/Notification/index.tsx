@@ -1,7 +1,6 @@
 import React from 'react';
 import { Notification, NotificationProps } from '@trezor/components';
 import { ExtendedMessageDescriptor } from '@suite-types';
-import { Translation } from '../Intl';
 
 // add additional type 'MessageDescriptor' to label to CTA object
 type CTAShape = Required<NotificationProps>['actions'][number] & {
@@ -23,13 +22,13 @@ const NotificationWithIntl = (props: Props) => {
     return (
         <Notification
             {...props}
-            title={<Translation>{props.title}</Translation>}
-            message={<Translation>{props.message}</Translation>}
+            title={props.title}
+            message={props.message}
             actions={
                 props.actions
                     ? props.actions.map(a => ({
                           ...a,
-                          label: <Translation>{a.label}</Translation>,
+                          label: a.label,
                       }))
                     : undefined
             }

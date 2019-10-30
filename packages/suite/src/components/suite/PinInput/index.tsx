@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Button, ButtonPin, InputPin } from '@trezor/components';
 
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 
 import l10nMessages from './index.messages';
 
@@ -144,7 +144,7 @@ const PinInput = (props: Props) => {
 
             <PinFooter>
                 <Button onClick={() => onPinSubmit(pin)}>
-                    <FormattedMessage {...l10nMessages.TR_ENTER_PIN} />
+                    <Translation message={l10nMessages.TR_ENTER_PIN} />
                 </Button>
             </PinFooter>
         </Wrapper>

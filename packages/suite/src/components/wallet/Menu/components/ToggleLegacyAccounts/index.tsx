@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import styled from 'styled-components';
 import { colors, Icon } from '@trezor/components';
 import l10nMessages from '../../index.messages';
@@ -32,7 +32,7 @@ const Toggle = ({ onToggle, isOpen }: Props) => {
                 setTouched(true);
             }}
         >
-            <FormattedMessage {...l10nMessages.TR_LEGACY_ACCOUNTS} />
+            <Translation message={l10nMessages.TR_LEGACY_ACCOUNTS} />
             <Icon
                 canAnimate={touched}
                 isActive={isOpen}

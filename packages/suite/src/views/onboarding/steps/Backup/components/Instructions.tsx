@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import { Icon, P } from '@trezor/components';
 import l10nMessages from './Instructions.messages';
 
@@ -40,7 +40,7 @@ const Instructions = () => {
                 <Instruction key={i.icon}>
                     <Icon size={80} icon={i.icon} />
                     <P size="small">
-                        <FormattedMessage {...i.message} />
+                        <Translation message={i.message} />
                     </P>
                 </Instruction>
             ))}

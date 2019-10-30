@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Notification, Link } from '@trezor/components';
 import Bignumber from 'bignumber.js';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 
 import l10nCommonMessages from '@suite-views/index.messages';
 import { getRoute } from '@suite-utils/router';
@@ -39,19 +39,17 @@ export default (props: Props) => {
                     key="xrp-warning"
                     variant="warning"
                     title={
-                        <FormattedMessage {...l10nMessages.TR_MINIMUM_ACCOUNT_RESERVE_REQUIRED} />
+                        <Translation message={l10nMessages.TR_MINIMUM_ACCOUNT_RESERVE_REQUIRED} />
                     }
                     message={
                         <>
-                            <FormattedMessage
-                                {...l10nMessages.TR_RIPPLE_ADDRESSES_REQUIRE_MINIMUM_BALANCE}
+                            <Translation
+                                message={l10nMessages.TR_RIPPLE_ADDRESSES_REQUIRE_MINIMUM_BALANCE}
                                 values={{
                                     minBalance: bigReserve.toString(),
                                     TR_LEARN_MORE: (
                                         <Link href="https://wiki.trezor.io/Ripple_(XRP)">
-                                            <FormattedMessage
-                                                {...l10nCommonMessages.TR_LEARN_MORE}
-                                            />
+                                            <Translation message={l10nCommonMessages.TR_LEARN_MORE} />
                                         </Link>
                                     ),
                                 }}

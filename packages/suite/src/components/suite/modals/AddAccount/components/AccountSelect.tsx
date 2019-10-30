@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { Translation } from '@suite-components/Intl';
 import styled from 'styled-components';
 import { Button, variables, colors } from '@trezor/components';
 // import { getTypeForNetwork } from '@wallet-utils/accountUtils';
@@ -45,8 +45,8 @@ const EnableNetwork = (props: {
 }) => (
     <>
         <StyledButton fullWidth onClick={() => props.onEnableNetwork(props.selectedNetwork.symbol)}>
-            <FormattedMessage
-                {...l10nMessages.TR_ENABLE_NETWORK_BUTTON}
+            <Translation
+                message={l10nMessages.TR_ENABLE_NETWORK_BUTTON}
                 values={{ networkName: props.selectedNetwork.name }}
             />
         </StyledButton>
