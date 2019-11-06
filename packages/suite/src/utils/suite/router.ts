@@ -11,9 +11,15 @@ export const getPrefixedURL = (url: string) => {
 
 export const stripPrefixedURL = (url: string) => {
     const { assetPrefix } = process.env;
+
+    // @ts-ignore
+    console.log('url.indexOf(assetPrefix) === 0', url.indexOf(assetPrefix) === 0);
+    console.log('assetPrefix', assetPrefix);
+
     if (typeof assetPrefix === 'string' && url.indexOf(assetPrefix) === 0) {
         url = url.slice(assetPrefix.length);
     }
+    console.log('url', url);
     return url;
 };
 
