@@ -103,6 +103,7 @@ export const getStatusColor = (deviceStatus: string): string => {
     }
 };
 
+// todo: not sure if this belongs to device utils, maybe something like suiteUtils
 export const isWebUSB = (transport?: Transport) =>
     !!(transport && transport.type && transport.type === 'webusb');
 
@@ -123,6 +124,10 @@ export const isDisabled = (
     return false; // default
 };
 */
+
+export const isDeviceRemembered = (device?: TrezorDevice): device is AcquiredDevice => {
+    return !!device && !!device.features && device.remember;
+};
 
 export const isDeviceAccessible = (device?: TrezorDevice) => {
     if (!device || !device.features) return false;
@@ -221,9 +226,12 @@ export const getSelectedDevice = (
  * @returns {TrezorDevice[]}
  */
 export const sortByTimestamp = (devices: TrezorDevice[]): TrezorDevice[] => {
+    // Node.js v11+ changed sort algo https://github.com/nodejs/node/pull/22754#issuecomment-423452575
+    // In unit tests some devices have undefined ts
     return devices.sort((a, b) => {
+        if (!a.ts && !b.ts) return 0; // both devices has undefined ts, keep their pos
         if (!b.ts && a.ts) return -1;
-        if (!a.ts || !b.ts) return 1;
+        if (!a.ts && b.ts) return 1;
         return b.ts - a.ts;
     });
 };
@@ -259,14 +267,22 @@ export const getOtherDevices = (
     // 3. outdated firmware
     // 5. timestamp
     return devices.sort((a, b) => {
+        if (!b.features && !a.features) return 0;
         if (!b.features && a.features) return 1;
         if (!b.features || !a.features) return -1;
-        if (a.mode !== 'normal') return -1;
+
+        if (a.mode !== 'normal' && b.mode !== 'normal') return 0;
         if (b.mode !== 'normal') return 1;
+        if (a.mode !== 'normal') return -1;
+
+        if (a.firmware !== 'valid' && b.firmware !== 'valid') return 0;
+        if (b.firmware !== 'valid') return 1;
         if (a.firmware !== 'valid') return -1;
-        if (b.features && b.firmware !== 'valid') return 1;
-        if (!a.ts && !b.ts) return -1;
-        return a.ts > b.ts ? -1 : 1;
+
+        if (!b.ts && !a.ts) return 0;
+        if (!b.ts && a.ts) return -1;
+        if (!b.ts || !a.ts) return 1;
+        return b.ts - a.ts;
     });
 };
 
