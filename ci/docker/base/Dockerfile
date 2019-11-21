@@ -30,3 +30,7 @@ ENV npm_config_unsafe_perm true
 
 RUN ls -laF /home
 RUN ls -laF ../
+RUN ls -laF /builds/satoshilabs/trezor/trezor-suite/
+RUN ls -laF /builds/satoshilabs/trezor/
+RUN ls -laF /builds/satoshilabs/
+RUN ls -laF /builds/
