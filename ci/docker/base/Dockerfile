@@ -23,6 +23,7 @@ RUN google-chrome-beta --version
 # good colors for most applications
 ENV TERM xterm
 
-RUN ls -laF /home
-RUN ls -laF ../
-RUN ls -laF /home/git
+WORKDIR /trezor-suite
+RUN git clone git@github.com:trezor/trezor-suite.git
+RUN cd trezor-suite/
+RUN yarn
