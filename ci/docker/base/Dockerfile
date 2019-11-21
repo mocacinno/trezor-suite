@@ -35,5 +35,4 @@ ENV npm_config_loglevel warn
 # allow installing when the main user is root
 ENV npm_config_unsafe_perm true
 
-RUN cd /builds/satoshilabs/trezor/trezor-suite/
-RUN yarn
+RUN ls -laF
