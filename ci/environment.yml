@@ -1,6 +1,5 @@
 build & push image:
     stage: setup environment
-    when: manual
     before_script:
         - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     variables:
@@ -10,7 +9,7 @@ build & push image:
     services:
         - docker:dind
     script:
-        - docker pull $CONTAINER_NAME:latest || true
-        - docker build --tag $CONTAINER_NAME:$CI_COMMIT_SHA --tag $CONTAINER_NAME:latest ./ci/docker/base
+        # - docker pull $CONTAINER_NAME:latest || true
+        # - docker build --tag $CONTAINER_NAME:$CI_COMMIT_SHA --tag $CONTAINER_NAME:latest ./ci/docker/base
+        - docker build --tag $CONTAINER_NAME:$CI_COMMIT_SHA ./ci/docker/base
         - docker push $CONTAINER_NAME:$CI_COMMIT_SHA
-        - docker push $CONTAINER_NAME:latest
