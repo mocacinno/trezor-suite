@@ -16,21 +16,13 @@ RUN \
 
 # versions of local tools
 RUN node -v
-RUN npm -v
 RUN yarn -v
 RUN google-chrome --version
 RUN google-chrome-beta --version
 
 # good colors for most applications
 ENV TERM xterm
-# avoid million NPM install messages
-ENV npm_config_loglevel warn
-# allow installing when the main user is root
-ENV npm_config_unsafe_perm true
 
 RUN ls -laF /home
 RUN ls -laF ../
-RUN ls -laF /builds/satoshilabs/trezor/trezor-suite/
-RUN ls -laF /builds/satoshilabs/trezor/
-RUN ls -laF /builds/satoshilabs/
-RUN ls -laF /builds/
+RUN ls -laF /home/git
