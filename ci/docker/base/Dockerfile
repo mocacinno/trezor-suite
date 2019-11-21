@@ -24,6 +24,6 @@ RUN google-chrome-beta --version
 ENV TERM xterm
 
 WORKDIR /trezor-suite
-RUN git clone git@github.com:trezor/trezor-suite.git
+RUN git clone https://github.com/trezor/trezor-suite.git
 RUN cd trezor-suite/
 RUN yarn
