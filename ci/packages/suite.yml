@@ -5,6 +5,13 @@ suite lint:
     dependencies:
         - install and build
 
+suite lint all:
+    stage: lint and prettier
+    script:
+        - lerna run lint --parallel --no-bail
+    dependencies:
+        - install and build
+
 suite detect l10n duplicities:
     stage: lint and prettier
     allow_failure: true
