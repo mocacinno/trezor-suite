@@ -2,15 +2,11 @@ components-storybook-v2 lint:
   stage: lint and prettier
   script:
     - yarn workspace @trezor/components-storybook-v2 lint
-  dependencies:
-    - install and build
 
 components-storybook-v2 type check:
   stage: typescript type check
   script:
     - yarn workspace @trezor/components-storybook-v2 type-check
-  dependencies:
-    - install and build
 
 components-storybook-v2 build:
   stage: build
@@ -21,8 +17,6 @@ components-storybook-v2 build:
     expire_in: 10 hours
     paths:
       - packages/components-storybook-v2/.build
-  dependencies:
-    - install and build
 
 components-storybook-v2 deploy dev:
   stage: deploy to dev servers
@@ -61,8 +55,6 @@ components-storybook-v2 delete review:
     - 'rm -r "${DEPLOY_DIRECTORY}"'
   tags:
     - deploy
-  dependencies:
-    - install and build
 
 components-storybook-v2 test snapshots:
   image: cypress/base:10
@@ -89,5 +81,3 @@ components-storybook-v2 make snapshot references:
     when: always
     paths:
       - /builds/satoshilabs/trezor/trezor-suite/packages/components-storybook-v2/test/snapshots/
-  dependencies:
-    - install and build

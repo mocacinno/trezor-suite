@@ -3,24 +3,18 @@ connect-explorer lint:
     allow_failure: false
     script:
         - yarn workspace @trezor/connect-explorer lint
-    dependencies:
-        - install and build
 
 connect-explorer type check:
     stage: typescript type check
     allow_failure: true
     script:
         - yarn workspace @trezor/connect-explorer type-check
-    dependencies:
-        - install and build
 
 connect-explorer type coverage:
     stage: typescript type check
     allow_failure: false
     script:
         - yarn workspace @trezor/connect-explorer type-coverage
-    dependencies:
-        - install and build
 
 connect-explorer build:
     stage: build
@@ -31,8 +25,6 @@ connect-explorer build:
         when: always
         paths:
             - packages/connect-explorer/build
-    dependencies:
-        - install and build
 
 connect-explorer deploy dev:
     stage: deploy to dev servers
@@ -69,8 +61,6 @@ connect-explorer delete review:
         - 'rm -r "${DEPLOY_DIRECTORY}"'
     tags:
         - deploy
-    dependencies:
-        - install and build
 
 connect-explorer test integration:
     image: cypress/base:10
@@ -99,5 +89,3 @@ connect-explorer make snapshot references:
         when: always
         paths:
             - /builds/satoshilabs/trezor/trezor-suite/packages/connect-explorer/test/snapshots/
-    dependencies:
-        - install and build
