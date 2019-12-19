@@ -66,10 +66,11 @@ suite-web test integration google-chrome:
         - install and build
 
 suite-web test integration google-chrome-beta:
-    only:
-        - schedules
+    # only:
+    #     - schedules
     stage: integration testing
     script:
+        - apt-get update
         - npx cypress install
         - CYPRESS_baseUrl=${DEV_SERVER_URL}/suite-web/${CI_BUILD_REF_NAME} BROWSER=/usr/bin/google-chrome-beta yarn workspace @trezor/suite-web test:integration:ci:run 
     artifacts:
