@@ -202,7 +202,7 @@ declare module 'trezor-connect' {
     }
 
     export type RequestLoginParams =
-        | CommonParams & { callback: () => LoginChallenge }
+        | (CommonParams & { callback: () => LoginChallenge })
         | LoginChallenge;
 
     export interface LoginDetails {
@@ -283,35 +283,38 @@ declare module 'trezor-connect' {
             path: string;
             addresses: AccountAddresses;
             utxo: AccountUtxo[];
-        }
+        };
         feeLevels: {
-            feePerUnit: string,
+            feePerUnit: string;
         }[];
         coin: string;
     }
 
-    export type PrecomposedTransaction = {
-        type: 'error',
-        error: string,
-    } | {
-        type: 'nonfinal',
-        max: string,
-        totalSpent: string, // all the outputs, no fee, no change
-        fee: string,
-        feePerByte: string,
-        bytes: number,
-    } | {
-        type: 'final',
-        max: string,
-        totalSpent: string, // all the outputs, no fee, no change
-        fee: string,
-        feePerByte: string,
-        bytes: number,
-        transaction: {
-            inputs: TransactionInput[],
-            outputs: TransactionOutput[],
-        },
-    }
+    export type PrecomposedTransaction =
+        | {
+              type: 'error';
+              error: string;
+          }
+        | {
+              type: 'nonfinal';
+              max: string;
+              totalSpent: string; // all the outputs, no fee, no change
+              fee: string;
+              feePerByte: string;
+              bytes: number;
+          }
+        | {
+              type: 'final';
+              max: string;
+              totalSpent: string; // all the outputs, no fee, no change
+              fee: string;
+              feePerByte: string;
+              bytes: number;
+              transaction: {
+                  inputs: TransactionInput[];
+                  outputs: TransactionOutput[];
+              };
+          };
 
     export interface Transaction {
         signatures: string[]; // signer signatures
@@ -347,6 +350,13 @@ declare module 'trezor-connect' {
     export type DeviceMode = 'normal' | 'bootloader' | 'initialize' | 'seedless';
 
     export type DeviceFirmwareStatus = 'valid' | 'outdated' | 'required' | 'unknown' | 'none';
+
+    export type UnavailableCapability =
+        | 'no-capability'
+        | 'no-support'
+        | 'update-required'
+        | 'trezor-connect-outdated'
+        | string[];
 
     export interface FirmwareRelease {
         required: boolean;
@@ -392,6 +402,7 @@ declare module 'trezor-connect' {
         recovery_mode?: boolean;
         session_id?: string;
         passphrase_always_on_device?: boolean;
+        capabilities?: string[];
     }
 
     export type Device =
@@ -405,6 +416,7 @@ declare module 'trezor-connect' {
               mode: DeviceMode;
               state?: string;
               features: Features;
+              unavailableCapabilities: { [key: string]: UnavailableCapability };
           }
         | {
               type: 'unacquired' | 'unreadable';
@@ -483,7 +495,13 @@ declare module 'trezor-connect' {
         type: 'send-max-noaddress';
     }
 
-    export type Output = RegularOutput | InternalOutput | SendMaxOutput | OpReturnOutput | NoAddressOutput | NoAddressSendMaxOutput;
+    export type Output =
+        | RegularOutput
+        | InternalOutput
+        | SendMaxOutput
+        | OpReturnOutput
+        | NoAddressOutput
+        | NoAddressSendMaxOutput;
 
     export interface BinOutput {
         amount: number;
@@ -596,22 +614,25 @@ declare module 'trezor-connect' {
     }
 
     export type BlockchainEvent =
-    {
-        type: typeof BLOCKCHAIN.CONNECT;
-        payload: BlockchainInfo;
-    } | {
-        type: typeof BLOCKCHAIN.ERROR;
-        payload: {
-            coin: BlockchainCoin;
-            error: string;
-        };
-    } | {
-        type: typeof BLOCKCHAIN.BLOCK;
-        payload: BlockchainBlock;
-    } | {
-        type: typeof BLOCKCHAIN.NOTIFICATION;
-        payload: BlockchainNotification;
-    };
+        | {
+              type: typeof BLOCKCHAIN.CONNECT;
+              payload: BlockchainInfo;
+          }
+        | {
+              type: typeof BLOCKCHAIN.ERROR;
+              payload: {
+                  coin: BlockchainCoin;
+                  error: string;
+              };
+          }
+        | {
+              type: typeof BLOCKCHAIN.BLOCK;
+              payload: BlockchainBlock;
+          }
+        | {
+              type: typeof BLOCKCHAIN.NOTIFICATION;
+              payload: BlockchainNotification;
+          };
 
     export const UI_EVENT = 'UI_EVENT';
     export namespace UI {
@@ -686,12 +707,13 @@ declare module 'trezor-connect' {
 
     export type UiEvent =
         | {
-              type: typeof UI.REQUEST_PIN
-                | typeof UI.INVALID_PIN
-                | typeof UI.REQUEST_PASSPHRASE_ON_DEVICE
-                | typeof UI.REQUEST_PASSPHRASE
-                | typeof UI.INVALID_PASSPHRASE
-                | typeof UI.REQUEST_WORD;
+              type:
+                  | typeof UI.REQUEST_PIN
+                  | typeof UI.INVALID_PIN
+                  | typeof UI.REQUEST_PASSPHRASE_ON_DEVICE
+                  | typeof UI.REQUEST_PASSPHRASE
+                  | typeof UI.INVALID_PASSPHRASE
+                  | typeof UI.REQUEST_WORD;
               payload: {
                   device: Device;
                   type?: string;
@@ -712,16 +734,16 @@ declare module 'trezor-connect' {
         | {
               type: typeof UI.REQUEST_CONFIRMATION;
               payload: {
-                  view: string,
-                  label?: string,
+                  view: string;
+                  label?: string;
                   customConfirmButton?: {
-                      className: string,
-                      label: string,
-                  },
+                      className: string;
+                      label: string;
+                  };
                   customCancelButton?: {
-                      className: string,
-                      label: string,
-                  },
+                      className: string;
+                      label: string;
+                  };
               };
           }
         | {
@@ -734,26 +756,26 @@ declare module 'trezor-connect' {
           }
         | {
               type:
-                | typeof UI.REQUEST_UI_WINDOW
-                | typeof UI.TRANSPORT
-                | typeof UI.RECEIVE_BROWSER
-                | typeof UI.CHANGE_ACCOUNT
-                | typeof UI.INSUFFICIENT_FUNDS
-                | typeof UI.CLOSE_UI_WINDOW
-                | typeof UI.LOGIN_CHALLENGE_REQUEST;
+                  | typeof UI.REQUEST_UI_WINDOW
+                  | typeof UI.TRANSPORT
+                  | typeof UI.RECEIVE_BROWSER
+                  | typeof UI.CHANGE_ACCOUNT
+                  | typeof UI.INSUFFICIENT_FUNDS
+                  | typeof UI.CLOSE_UI_WINDOW
+                  | typeof UI.LOGIN_CHALLENGE_REQUEST;
               payload: undefined;
           }
         | {
               type: typeof IFRAME.LOADED;
           }
         | {
-            type: typeof UI.FIRMWARE_PROGRESS;
-            payload: {
-                progress: number;
-            };
-        };
+              type: typeof UI.FIRMWARE_PROGRESS;
+              payload: {
+                  progress: number;
+              };
+          };
 
-    export type UIResponse = 
+    export type UIResponse =
         | {
               type: typeof UI.RECEIVE_PERMISSION;
               payload: {
@@ -782,7 +804,7 @@ declare module 'trezor-connect' {
                   save: boolean;
                   value: string;
                   passphraseOnDevice?: boolean;
-              }
+              };
           };
 
     export interface BlockchainSubscribeParams {
@@ -808,8 +830,8 @@ declare module 'trezor-connect' {
         testnet: boolean;
         version: string;
         misc?: {
-            reserve?: string,
-        },
+            reserve?: string;
+        };
     }
 
     export interface BlockchainBlock {
@@ -817,7 +839,7 @@ declare module 'trezor-connect' {
         blockHeight: number;
         coin: BlockchainCoin;
     }
-    
+
     export interface BlockchainNotification {
         notification: {
             descriptor: string;
@@ -825,7 +847,7 @@ declare module 'trezor-connect' {
         };
         coin: BlockchainCoin;
     }
-    
+
     export interface BlockchainCoin {
         type: 'misc';
         blockchainLink: {
@@ -834,7 +856,7 @@ declare module 'trezor-connect' {
         };
         blocktime: number | null;
         curve: string;
-        defaultFees: { Normal: number; }; 
+        defaultFees: { Normal: number };
         minFee: 1;
         maxFee: 1;
         label: string;
@@ -852,7 +874,7 @@ declare module 'trezor-connect' {
         chainId?: 3; // eth
         rskip60?: number; // eth
     }
-    
+
     interface BlockchainEstimateFeeParams {
         coin: string;
         request?: {
@@ -865,7 +887,7 @@ declare module 'trezor-connect' {
                 txsize?: number;
             };
             feeLevels?: 'preloaded' | 'smart';
-        }
+        };
     }
 
     export interface FeeLevel {
@@ -950,10 +972,14 @@ declare module 'trezor-connect' {
         function getAddress(params: Bundle<GetAddressParams>): Promise<ResponseMessage<Address[]>>;
 
         function ethereumGetAddress(params: GetAddressParams): Promise<ResponseMessage<Address>>;
-        function ethereumGetAddress(params: Bundle<GetAddressParams>): Promise<ResponseMessage<Address[]>>;
+        function ethereumGetAddress(
+            params: Bundle<GetAddressParams>,
+        ): Promise<ResponseMessage<Address[]>>;
 
         function rippleGetAddress(params: GetAddressParams): Promise<ResponseMessage<Address>>;
-        function rippleGetAddress(params: Bundle<GetAddressParams>): Promise<ResponseMessage<Address[]>>;
+        function rippleGetAddress(
+            params: Bundle<GetAddressParams>,
+        ): Promise<ResponseMessage<Address[]>>;
 
         /**
          * Gets an info of specified account.
@@ -973,13 +999,12 @@ declare module 'trezor-connect' {
          * returned in hexadecimal format. Change output is added automatically, if
          * needed.
          */
-        
 
         function composeTransaction(
             params: ComposeTransactionParams,
         ): Promise<ResponseMessage<Transaction>>;
         function composeTransaction(
-            params: PrecomposeTransactionParams
+            params: PrecomposeTransactionParams,
         ): Promise<ResponseMessage<PrecomposedTransaction[]>>;
 
         /**
@@ -1022,7 +1047,7 @@ declare module 'trezor-connect' {
         function recoveryDevice(params: RecoveryDeviceParams): Promise<ResponseMessage<Message>>;
 
         /**
-         * Increment saved flag on device 
+         * Increment saved flag on device
          */
         function applyFlags(params: ApplyFlagsParams): Promise<ResponseMessage<Message>>;
 
@@ -1031,7 +1056,10 @@ declare module 'trezor-connect' {
         function cancel(params?: string): void;
 
         function on(event: typeof TRANSPORT_EVENT, callback: (event: TransportEvent) => void): void;
-        function on(event: typeof UI_EVENT, callback: (event: { event: typeof UI_EVENT; } & UiEvent) => void): void;
+        function on(
+            event: typeof UI_EVENT,
+            callback: (event: { event: typeof UI_EVENT } & UiEvent) => void,
+        ): void;
         function on(event: typeof DEVICE_EVENT, callback: (event: DeviceEvent) => void): void;
         function on(event: any, callback: (event: any) => void): void;
 
@@ -1041,13 +1069,19 @@ declare module 'trezor-connect' {
 
         function renderWebUSBButton(): void;
 
-        function getDeviceState(params: CommonParams): Promise<ResponseMessage<DeviceStateResponse>>;
+        function getDeviceState(
+            params: CommonParams,
+        ): Promise<ResponseMessage<DeviceStateResponse>>;
 
         function disableWebUSB(): void;
 
-        function blockchainSubscribe(params: BlockchainSubscribeParams): Promise<ResponseMessage<BlockchainSubscribeResponse>>;
+        function blockchainSubscribe(
+            params: BlockchainSubscribeParams,
+        ): Promise<ResponseMessage<BlockchainSubscribeResponse>>;
 
-        function blockchainEstimateFee(params: BlockchainEstimateFeeParams): Promise<ResponseMessage<BlockchainEstimateFeeResponse>>;
+        function blockchainEstimateFee(
+            params: BlockchainEstimateFeeParams,
+        ): Promise<ResponseMessage<BlockchainEstimateFeeResponse>>;
     }
 
     export default TrezorConnect;
