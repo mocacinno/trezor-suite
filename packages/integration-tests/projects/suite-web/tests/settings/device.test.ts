@@ -9,7 +9,6 @@ describe('Device settings', () => {
         cy.viewport(1024, 768).resetDb();
 
         cy.visit('/');
- 
 
         cy.goToSuite();
         // make sure suite already sees device
@@ -73,7 +72,8 @@ describe('Device settings', () => {
             .click()
             .getConfirmActionOnDeviceModal();
         cy.task('sendDecision', { method: 'wipeDevice' });
-        cy.goToOnboarding().onboardingShouldLoad();
+        cy.getTestElement('@button/go-to-onboarding').click();
+        cy.onboardingShouldLoad();
     });
 
     // TODO: upload custom image
