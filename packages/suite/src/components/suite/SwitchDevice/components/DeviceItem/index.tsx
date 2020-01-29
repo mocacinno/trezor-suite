@@ -89,6 +89,7 @@ const AddWallet = styled.div`
 const DeviceHeader = styled.div`
     display: flex;
     align-items: center;
+    flex: 1;
 `;
 
 const DeviceImageWrapper = styled.div`
@@ -159,7 +160,7 @@ const DeviceItem = (props: Props & WrappedComponentProps) => {
     };
 
     return (
-        <DeviceWrapper key={device.path}>
+        <DeviceWrapper>
             <Device>
                 <DeviceHeader>
                     <DeviceImageWrapper>
@@ -171,9 +172,8 @@ const DeviceItem = (props: Props & WrappedComponentProps) => {
                             {deviceUtils.getStatusName(deviceStatus, props.intl)}
                         </DeviceStatus>
                     </Col>
-                </DeviceHeader>
-                {hasDeviceSelection && (
-                    <Col>
+
+                    {hasDeviceSelection && (
                         <ChooseDevice
                             size="small"
                             variant="secondary"
@@ -181,8 +181,8 @@ const DeviceItem = (props: Props & WrappedComponentProps) => {
                         >
                             Choose device
                         </ChooseDevice>
-                    </Col>
-                )}
+                    )}
+                </DeviceHeader>
             </Device>
             <WalletsWrapper enabled={isWalletContext}>
                 {isWalletContext && (
