@@ -151,7 +151,7 @@ const toif = (w: number, h: number, imageData: ImageData) => {
     return header + byteArrayToHexString(packed);
 };
 
-const fileToDataUrl = (file: File): Promise<string> => {
+export const fileToDataUrl = (file: File): Promise<string> => {
     const reader = new FileReader();
     return new Promise((resolve, reject) => {
         reader.onload = e => {
@@ -227,6 +227,11 @@ export const checkImage = (origImage: HTMLImageElement, model: number) => {
             });
         });
     }
+};
+
+export const fileToImage = (file: File) => {
+    return fileToDataUrl(file)
+        .then((url: string) => dataUrlToImage(url))
 };
 
 export const check = (file: File, model: number) => {

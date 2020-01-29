@@ -12,6 +12,7 @@ import { Menu as SettingsMenu } from '@settings-components';
 import { getFwVersion } from '@suite-utils/device';
 import { SEED_MANUAL_URL, DRY_RUN_URL, PASSPHRASE_URL } from '@suite-constants/urls';
 // import { AcquiredDevice } from '@suite-types';
+import * as homescreen from '@suite-utils/homescreen';
 
 import { Props } from './Container';
 
@@ -50,6 +51,13 @@ const Settings = ({
 }: Props) => {
     const uiLocked = locks.includes(SUITE.LOCK_TYPE.DEVICE) || locks.includes(SUITE.LOCK_TYPE.UI);
     const [label, setLabel] = useState('');
+    const [ownHomescreen, setHomescreen] = useState(null);
+
+    const onSetHomescreen = async (file) => {
+        const dataUrl = await homescreen.fileToDataUrl(file);
+        console.log('dataUrl', dataUrl);
+        setHomescreen(dataUrl);
+    }
 
     useEffect(() => {
         if (!device) {
@@ -288,6 +296,13 @@ const Settings = ({
                             }
                         />
                         <ActionColumn>
+                            <input type="file" onChange={(e) => {
+                                console.log(e.target.files[0]);
+                                // console.log(homescreen.check(e.target.files[0], 2))
+                                // applySettings({ homescreen: e.target.files[0] })
+                                // setHomescreen(homescreen.check(e.target.files[0], 2));
+                                onSetHomescreen(e.target.files[0])
+                            }}/>
                             <ActionButton
                                 onClick={() => console.log('woo')}
                                 isDisabled={uiLocked}
@@ -314,7 +329,15 @@ const Settings = ({
                             </ActionButton>
                         </ActionColumn>
                     </Row>
-
+                    <Row>
+                    { ownHomescreen && <img id="custom-image" src={ownHomescreen} onClick={() => {
+                        const element = document.getElementById('custom-image');
+                        if (element instanceof HTMLImageElement) {
+                            const hex = homescreen.elementToHomescreen(element, device.features.major_version);
+                            applySettings({ homescreen: hex, device });
+                        }
+                    }} />}
+                    </Row>
                     {features.major_version === 2 && (
                         <Row>
                             <TextColumn
